@@ -1,0 +1,32 @@
+{
+  "name": "gsd-jira-bridge",
+  "version": "1.2.0",
+  "description": "Syncs GSD (get-shit-done) workflow with Jira via Claude Code MCP",
+  "keywords": ["claude", "claude-code", "gsd", "jira", "atlassian", "mcp", "workflow"],
+  "author": "Luigi Serra <luigi@luigiserra.com> (https://github.com/luigiserra-org)",
+  "license": "MIT",
+  "homepage": "https://github.com/luigiserra-org/gsd-jira-bridge#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luigiserra-org/gsd-jira-bridge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/luigiserra-org/gsd-jira-bridge/issues"
+  },
+  "bin": {
+    "gsd-jira-bridge": "./bin/install.js"
+  },
+  "files": [
+    "bin/",
+    "commands/",
+    "config.template.json",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "test": "node bin/install.js --dry-run"
+  }
+}
