@@ -6,6 +6,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.3.4] — 2026-02-27
+
+### Upgrade mode — update without re-entering config
+
+#### Changed
+- Installer now detects existing `gsd-jira-bridge.json` config (global or local)
+- If config exists, runs in upgrade mode: updates all commands, preserves config — no questions asked
+- Fresh installs still go through the full interactive setup as before
+
+---
+
 ## [1.3.3] — 2026-02-27
 
 ### New /jira-sync command

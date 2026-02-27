@@ -117,7 +117,62 @@ if (UNINSTALL) {
 
   log('');
 
-  // ── Step 2: Jira configuration ─────────────────────────────────────────────
+  // ── Detect existing installation ──────────────────────────────────────────
+  let existingCfg = null;
+  let existingCfgPath = null;
+
+  if (fs.existsSync(GLOBAL_CFG)) {
+    existingCfg = JSON.parse(fs.readFileSync(GLOBAL_CFG, 'utf8'));
+    existingCfgPath = GLOBAL_CFG;
+  } else if (fs.existsSync(LOCAL_CFG)) {
+    existingCfg = JSON.parse(fs.readFileSync(LOCAL_CFG, 'utf8'));
+    existingCfgPath = LOCAL_CFG;
+  }
+
+  if (existingCfg) {
+    // ── Upgrade mode ──────────────────────────────────────────────────────────
+    log(c.bold('[2/2] Upgrading commands'));
+    log('');
+    ok(`Existing config found: ${existingCfgPath}`);
+    info(`Project: ${existingCfg.jira.project_key} @ ${existingCfg.jira.base_url}`);
+    log('');
+
+    const installType = existingCfg.install_type || (existingCfgPath === GLOBAL_CFG ? 'global' : 'local');
+    const destCmds = installType === 'global' ? GLOBAL_CMDS : LOCAL_CMDS;
+
+    if (!DRY_RUN) {
+      fs.mkdirSync(destCmds, { recursive: true });
+    }
+
+    let updated = 0;
+    for (const cmd of COMMANDS) {
+      const src  = path.join(SRC_COMMANDS, cmd);
+      const dest = path.join(destCmds, cmd);
+      const isNew = !fs.existsSync(dest);
+      if (!DRY_RUN) fs.copyFileSync(src, dest);
+      ok(`${isNew ? 'Added' : 'Updated'}: ${cmd}`);
+      updated++;
+    }
+
+    // Update config timestamp
+    existingCfg.updated_at = new Date().toISOString();
+    if (!DRY_RUN) {
+      fs.writeFileSync(existingCfgPath, JSON.stringify(existingCfg, null, 2));
+    }
+
+    log('');
+    log(c.bold('╔════════════════════════════════════════╗'));
+    log(c.bold('║   gsd-jira-bridge upgraded! 🎉         ║'));
+    log(c.bold('╚════════════════════════════════════════╝'));
+    log('');
+    ok(`${updated} commands updated. Config preserved.`);
+    log('');
+    log(`  by Luigi Serra · github.com/luigiserra-org`);
+    log('');
+    return;
+  }
+
+  // ── Fresh install: Step 2 — Jira configuration ────────────────────────────
   log(c.bold('[2/4] Jira configuration'));
   log('');
   info('Cloud ID: open https://yourorg.atlassian.net/_edge/tenant_info in your browser — copy the cloudId value');
