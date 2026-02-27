@@ -109,11 +109,10 @@ if (UNINSTALL) {
   const planningState = path.join(process.cwd(), '.planning', 'STATE.md');
   if (fs.existsSync(planningState)) {
     log('');
-    warn('Existing GSD project detected (.planning/STATE.md found).');
-    info('Some phases may already be complete. After installation:');
-    info('  1. Run /jira-init — completed phases will be recorded as Done in Jira');
-    info('  2. Run /jira-sync-tasks only for phases with open work');
-    info('  3. Run /jira-validate to confirm everything is working');
+    warn('Existing GSD project detected — some phases may already be complete.');
+    info('No problem: finish this installation, then open Claude Code and run:');
+    info('  /jira-validate   → verify everything is working');
+    info('  /jira-init       → gsd-jira-bridge will handle completed phases automatically');
   }
 
   log('');
@@ -121,8 +120,8 @@ if (UNINSTALL) {
   // ── Step 2: Jira configuration ─────────────────────────────────────────────
   log(c.bold('[2/4] Jira configuration'));
   log('');
-  info('Find your Cloud ID at: Jira Settings → Products → Atlassian Cloud → Organization ID');
-  info('Find your Project Key in the Jira project URL: .../jira/software/projects/[KEY]/...');
+  info('Cloud ID: open https://yourorg.atlassian.net/_edge/tenant_info in your browser — copy the cloudId value');
+  info('Project Key: visible in your Jira project URL → .../jira/software/projects/[KEY]/...');
   log('');
 
   let cloudId = '';
