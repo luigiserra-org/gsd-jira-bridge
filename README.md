@@ -125,11 +125,13 @@ gsd-jira-bridge will detect completed phases automatically and handle them corre
 From here, each GSD command has a corresponding bridge command. Run them in pairs:
 
 ```
-/gsd:discuss-phase 1    →   /jira-sync-phase 1
-/gsd:plan-phase 1       →   /jira-sync-tasks 1
+/gsd:discuss-phase 1    →   /jira-sync
+/gsd:plan-phase 1       →   /jira-sync
 /gsd:execute-phase 1    →   /jira-update 1
 /gsd:complete-milestone →   /jira-close
 ```
+
+`/jira-sync` figures out what needs to be done and handles it automatically. Run it after any GSD command and Jira will be up to date.
 
 Not sure where you are? Run `/jira-status` at any time for a full overview.
 
@@ -216,6 +218,18 @@ Utilities — use anytime:
 Initializes the Jira structure for the current GSD milestone. Creates the Fix Version and one Epic per Phase. Saves everything to `.planning/jira-bridge/manifest.json`.
 
 **When:** after `/gsd:new-project`
+
+---
+
+### `/jira-sync`
+The all-in-one sync command. Compares the full GSD state with Jira and brings everything up to date — creates missing Epics, syncs context, creates Stories and Tasks, updates statuses. Run it at any time without worrying about which specific command to use.
+
+```
+/jira-sync        → syncs all phases that need attention
+/jira-sync 12     → focuses on phase 12 only
+```
+
+**When:** anytime — especially after adding new phases or after `/gsd:discuss-phase` and `/gsd:plan-phase`
 
 ---
 

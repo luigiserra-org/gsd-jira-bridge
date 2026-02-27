@@ -6,6 +6,31 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.3.3] — 2026-02-27
+
+### New /jira-sync command
+
+#### Added
+- `/jira-sync` — all-in-one sync command: detects what each phase needs (create Epic, sync context, create tasks, update statuses) and executes everything automatically. Run it at any time without worrying about which specific command to use.
+- `/jira-sync N` — same but focused on a single phase
+
+#### Changed
+- README workflow section updated: `/jira-sync` is now the recommended command after each GSD step
+- Installer summary updated to highlight `/jira-sync` as the main sync command
+
+---
+
+## [1.3.2] — 2026-02-27
+
+### Improved installer messages
+
+#### Changed
+- Brownfield warning rewritten: instructions now clearly say to finish installation first, then open Claude Code
+- Cloud ID instructions fixed: now points to `/_edge/tenant_info` endpoint which actually works
+- Project Key instructions simplified
+
+---
+
 ## [1.3.0] — 2026-02-27
 
 ### npm package — cross-platform installation

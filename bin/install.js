@@ -195,9 +195,8 @@ if (UNINSTALL) {
   log('');
   log(`${c.bold('Main workflow:')}`);
   log('  /jira-init         → after /gsd:new-project');
-  log('  /jira-sync-phase   → after /gsd:discuss-phase');
-  log('  /jira-sync-tasks   → after /gsd:plan-phase');
-  log('  /jira-update       → after /gsd:execute-phase');
+  log('  /jira-sync         → sync GSD → Jira at any time (handles everything)');
+  log('  /jira-update       → update task statuses during execution');
   log('  /jira-close        → after /gsd:complete-milestone');
   log('');
   log(`${c.bold('Utilities:')}`);
@@ -207,7 +206,7 @@ if (UNINSTALL) {
   log('  /jira-validate     → verify installation (run this now!)');
   log('  /jira-repair       → repair manifest if out of sync');
   log('');
-  log(`Start with: ${c.bold('/jira-validate')} → then ${c.bold('/gsd:new-project')} → then ${c.bold('/jira-init')}`);
+  log(`Start with: ${c.bold('/jira-validate')} → then ${c.bold('/gsd:new-project')} → then ${c.bold('/jira-init')} → use ${c.bold('/jira-sync')} anytime`);
   log('');
   log(`  by Luigi Serra · github.com/luigiserra-org`);
   log('');
