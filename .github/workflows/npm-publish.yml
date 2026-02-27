@@ -8,6 +8,8 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -29,6 +31,7 @@ jobs:
           TAG_VERSION=${{ steps.version.outputs.VERSION }}
           if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
             echo "❌ package.json version ($PKG_VERSION) does not match tag ($TAG_VERSION)"
+            echo "   Update package.json before tagging."
             exit 1
           fi
           echo "✓ Version match: $PKG_VERSION"
